@@ -1,33 +1,21 @@
-use stylist::{style, yew::styled_component};
-use yew::{function_component, html, Html};
+use stylist::yew::styled_component;
+use yew::{html, AttrValue, Callback, Html};
+
+use crate::components::{
+    create_post::CreatePost,
+    title::{BBTitle, BBTitleLevel},
+};
 
 #[styled_component]
 pub fn Home() -> Html {
-    let center = style! {
-        text-align: center;
-    }
-    .expect("style failed to create");
-
-    let form = style! {
-        display: flex;
-        flex-direction: column;
-
-        button {
-            margin-top: 1rem;
-            width: 6rem;
-        }
-    }
-    .unwrap();
+    let oncreatepost = Callback::from(|post: AttrValue| {
+        gloo::console::log!(post.to_string());
+    });
 
     html! {
         <>
-            <h1 class={center}>{"X/Twitter Clone"}</h1>
-            <form class={form}>
-                <h2>{"Create new post"}</h2>
-                <textarea rows="5" cols="55">
-                </textarea>
-                <button type={"submit"}>{"Submit post"}</button>
-            </form>
+            <BBTitle center={true} level={BBTitleLevel::One}>{"X/Twitter Clone"}</BBTitle>
+            <CreatePost {oncreatepost}/>
         </>
     }
 }

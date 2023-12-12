@@ -25,6 +25,14 @@ We are using the [axum x/twitter clone](https://github.com/brooks-builds/axum_x_
 - stylist v0.13.0
   - with features
     - yew
+- gloo v0.11.0
+- wasm-bindgen v0.2.89
+- web-sys v0.3.66
+  - with features
+    - HtmlTextAreaElement
+- serde v1.0.193
+  - with features
+    - derive
 
 - cli
   - trunk v0.17.5

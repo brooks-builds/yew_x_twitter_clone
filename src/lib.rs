@@ -1,3 +1,5 @@
+mod api;
+mod components;
 mod pages;
 mod router;
 
