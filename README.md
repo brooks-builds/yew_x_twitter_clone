@@ -6,7 +6,7 @@ We are using the [axum x/twitter clone](https://github.com/brooks-builds/axum_x_
 
 ## Features
 
-- [ ] As a user, I want to create a post
+- [x] As a user, I want to create a post
 - [ ] As a user, I want to see all posts
 - [ ] As a user, I want to see replies to a single post
 - [ ] As a user, I want to reply to a post
@@ -33,6 +33,8 @@ We are using the [axum x/twitter clone](https://github.com/brooks-builds/axum_x_
 - serde v1.0.193
   - with features
     - derive
+- eyre v0.6.9
+- wasm-bindgen-futures v0.4.39
 
 - cli
   - trunk v0.17.5

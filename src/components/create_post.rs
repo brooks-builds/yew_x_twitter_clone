@@ -1,8 +1,7 @@
+use super::textarea::BBTextArea;
 use std::ops::Deref;
-
 use stylist::{style, yew::styled_component};
-use wasm_bindgen::JsCast;
-use web_sys::{Event, HtmlTextAreaElement, SubmitEvent};
+use web_sys::SubmitEvent;
 use yew::{html, use_state, AttrValue, Callback, Html, Properties};
 
 use crate::components::title::{BBTitle, BBTitleLevel};
@@ -38,25 +37,22 @@ pub fn CreatePost(props: &Props) -> Html {
             let post_text = new_post_text.deref().clone();
 
             props_oncreatepost.emit(post_text);
+            new_post_text.set(AttrValue::default());
         })
     };
 
-    let textarea_onchange = {
+    let bb_textarea_onchange = {
         let new_post_text = new_post_text.clone();
-        Callback::from(move |event: Event| {
-            let target = event.target().unwrap();
-            let text_area = target.unchecked_into::<HtmlTextAreaElement>();
-            let value = text_area.value();
 
-            new_post_text.set(value.into());
+        Callback::from(move |post_text: AttrValue| {
+            new_post_text.set(post_text);
         })
     };
 
     html! {
             <form class={form} {onsubmit}>
                 <BBTitle level={BBTitleLevel::Two}>{"Create Post"}</BBTitle>
-                <textarea rows="5" cols="55" onchange={textarea_onchange}>
-                </textarea>
+                <BBTextArea onchange={bb_textarea_onchange} value={new_post_text.deref().clone()} />
                 <button type={"submit"}>{"Submit post"}</button>
             </form>
     }

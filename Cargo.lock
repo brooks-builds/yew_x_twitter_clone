@@ -127,6 +127,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
 
 [[package]]
+name = "eyre"
+version = "0.6.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "80f656be11ddf91bd709454d15d5bd896fbaf4cc3314e69349e4d1569f5b46cd"
+dependencies = [
+ "indenter",
+ "once_cell",
+]
+
+[[package]]
 name = "fastrand"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -694,6 +704,12 @@ dependencies = [
  "quote",
  "syn 2.0.40",
 ]
+
+[[package]]
+name = "indenter"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ce23b50ad8242c51a442f3ff322d56b02f08852c77e4c0b4d3fd684abc89c683"
 
 [[package]]
 name = "indexmap"
@@ -1387,10 +1403,12 @@ version = "0.1.0"
 dependencies = [
  "dotenvy",
  "dotenvy_macro",
+ "eyre",
  "gloo 0.11.0",
  "serde",
  "stylist",
  "wasm-bindgen",
+ "wasm-bindgen-futures",
  "web-sys",
  "yew",
  "yew-router",
