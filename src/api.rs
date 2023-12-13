@@ -36,7 +36,7 @@ pub struct CreatePostResponse {
     id: i32,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct Post {
     pub id: i32,
     pub text: AttrValue,

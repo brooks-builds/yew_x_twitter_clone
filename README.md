@@ -35,6 +35,7 @@ We are using the [axum x/twitter clone](https://github.com/brooks-builds/axum_x_
     - derive
 - eyre v0.6.9
 - wasm-bindgen-futures v0.4.39
+- yewdux v0.9.4
 
 - cli
   - trunk v0.17.5
