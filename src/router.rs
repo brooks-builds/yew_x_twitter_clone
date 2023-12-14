@@ -1,4 +1,4 @@
-use crate::pages::home::Home;
+use crate::pages::{home::Home, one_post::OnePost};
 use yew::{html, Html};
 use yew_router::Routable;
 
@@ -6,10 +6,13 @@ use yew_router::Routable;
 pub enum Route {
     #[at("/")]
     Home,
+    #[at("/posts/:id")]
+    OnePost { id: i32 },
 }
 
 pub fn switch(routes: Route) -> Html {
     match routes {
         Route::Home => html! { <Home /> },
+        Route::OnePost { id } => html! { <OnePost {id} /> },
     }
 }

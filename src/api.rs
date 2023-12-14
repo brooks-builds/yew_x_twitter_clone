@@ -55,3 +55,22 @@ pub async fn get_all_posts() -> Result<Vec<Post>> {
         .await?;
     Ok(result)
 }
+
+pub async fn get_one_post(id: i32) -> Result<Option<ApiOnePost>> {
+    let url = format!("{API_URL}/api/v1/posts/{id}");
+    let result = gloo::net::http::Request::get(&url)
+        .send()
+        .await?
+        .json::<ApiOnePost>()
+        .await?;
+
+    Ok(Some(result))
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ApiOnePost {
+    pub id: u32,
+    pub text: String,
+    pub likes: u32,
+    pub replies: Vec<Post>,
+}

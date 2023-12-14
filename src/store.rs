@@ -8,6 +8,12 @@ pub struct AppState {
     pub posts: Vec<Post>,
 }
 
+impl AppState {
+    pub fn get_post_by_id(&self, id: i32) -> Option<&Post> {
+        self.posts.iter().find(|post| post.id == id)
+    }
+}
+
 #[derive(Default, Debug, Clone, PartialEq, Eq)]
 pub struct Post {
     pub id: i32,
