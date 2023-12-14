@@ -1,5 +1,5 @@
 use stylist::yew::styled_component;
-use yew::{html, AttrValue, Callback, Html};
+use yew::{html, use_effect, AttrValue, Callback, Html};
 use yewdux::prelude::use_store;
 
 use crate::{
@@ -16,6 +16,33 @@ use crate::{
 pub fn Home() -> Html {
     let (_store, dispatch) = use_store::<AppState>();
 
+    {
+        let dispatch = dispatch.clone();
+
+        use_effect(move || {
+            let dispatch = dispatch.clone();
+
+            wasm_bindgen_futures::spawn_local(async move {
+                let all_posts = match api::get_all_posts().await {
+                    Ok(posts) => posts,
+                    Err(error) => {
+                        gloo::console::error!(
+                            "There was an error getting all posts",
+                            error.to_string()
+                        );
+                        return;
+                    }
+                };
+
+                dispatch.reduce_mut(move |state| {
+                    let posts = all_posts.into_iter().map(Into::into).collect();
+
+                    state.posts = posts;
+                });
+            });
+            || {}
+        });
+    }
     let oncreatepost = Callback::from(move |post: AttrValue| {
         let dispatch = dispatch.clone();
 
@@ -28,7 +55,7 @@ pub fn Home() -> Html {
                 }
             };
 
-            let post = Post::new(created_post.id, created_post.text);
+            let post = Post::new(created_post.id, created_post.text.into());
             dispatch.reduce_mut(move |state| {
                 state.posts.insert(0, post);
             });

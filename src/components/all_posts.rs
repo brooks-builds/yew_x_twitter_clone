@@ -1,4 +1,4 @@
-use yew::{function_component, html, AttrValue, Html};
+use yew::{function_component, html, Html};
 use yewdux::prelude::use_store;
 
 use crate::{
@@ -6,7 +6,7 @@ use crate::{
         one_post::BBPost,
         title::{BBTitle, BBTitleLevel},
     },
-    store::{AppState, Post},
+    store::AppState,
 };
 
 #[function_component]

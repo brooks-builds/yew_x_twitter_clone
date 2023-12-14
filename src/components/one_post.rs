@@ -1,5 +1,5 @@
 use stylist::{style, yew::styled_component};
-use yew::{function_component, html, AttrValue, Html, Properties};
+use yew::{html, Html, Properties};
 
 use crate::store::Post;
 

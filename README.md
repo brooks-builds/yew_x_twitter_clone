@@ -7,7 +7,7 @@ We are using the [axum x/twitter clone](https://github.com/brooks-builds/axum_x_
 ## Features
 
 - [x] As a user, I want to create a post
-- [ ] As a user, I want to see all posts
+- [x] As a user, I want to see all posts
 - [ ] As a user, I want to see replies to a single post
 - [ ] As a user, I want to reply to a post
 - [ ] As a user, I want to update the text of a post
