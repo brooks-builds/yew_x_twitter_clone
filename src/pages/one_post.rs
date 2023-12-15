@@ -56,7 +56,7 @@ pub fn OnePost(props: &Props) -> Html {
             <BBPost post={post.clone()} disable_navigation={true} />
             <BBTitle level={BBTitleLevel::Two} center={true}>{"Comments"}</BBTitle>
             {
-                post.responses.iter().map(|response| html! { <BBPost post={response.clone()} / >}).collect::<Vec<Html>>()
+                post.responses.iter().map(|response| html! { <BBPost post={response.clone()} disable_navigation={true} / >}).collect::<Vec<Html>>()
             }
         </main>
     }
