@@ -7,7 +7,7 @@ pub enum Route {
     #[at("/")]
     Home,
     #[at("/posts/:id")]
-    OnePost { id: i32 },
+    OnePost { id: u32 },
 }
 
 pub fn switch(routes: Route) -> Html {

@@ -35,15 +35,15 @@ pub struct CreatePost {
 
 #[derive(Deserialize)]
 pub struct CreatePostResponse {
-    id: i32,
+    id: u32,
 }
 
 #[derive(Debug, PartialEq, Clone, Default, Deserialize)]
 pub struct Post {
-    pub id: i32,
+    pub id: u32,
     pub text: String,
-    pub likes: i32,
-    pub replies: i32,
+    pub likes: u32,
+    pub replies: u32,
 }
 
 pub async fn get_all_posts() -> Result<Vec<Post>> {
@@ -56,7 +56,7 @@ pub async fn get_all_posts() -> Result<Vec<Post>> {
     Ok(result)
 }
 
-pub async fn get_one_post(id: i32) -> Result<Option<ApiOnePost>> {
+pub async fn get_one_post(id: u32) -> Result<Option<ApiOnePost>> {
     let url = format!("{API_URL}/api/v1/posts/{id}");
     let result = gloo::net::http::Request::get(&url)
         .send()
