@@ -4,7 +4,7 @@ mod pages;
 mod router;
 mod store;
 
-use yew::{function_component, html, use_effect, Html};
+use yew::{function_component, html, Html};
 use yew_router::{BrowserRouter, Switch};
 use yewdux::prelude::use_store;
 
@@ -15,7 +15,7 @@ use crate::{
 
 #[function_component]
 pub fn App() -> Html {
-    let (_store, dispatch) = use_store::<AppState>();
+    let _store = use_store::<AppState>();
 
     html! {
         <BrowserRouter>

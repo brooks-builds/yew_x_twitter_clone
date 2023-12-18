@@ -5,9 +5,10 @@ use yew::AttrValue;
 
 const API_URL: &str = dotenv!("API_URL");
 
-pub async fn create_post(post_text: AttrValue) -> Result<Post> {
+pub async fn create_post(post_text: AttrValue, parent_id: Option<u32>) -> Result<Post> {
     let data = CreatePost {
         text: post_text.to_string(),
+        parent_id,
     };
     let url = format!("{API_URL}/api/v1/posts");
 
@@ -31,6 +32,7 @@ pub async fn create_post(post_text: AttrValue) -> Result<Post> {
 #[derive(Serialize)]
 pub struct CreatePost {
     text: String,
+    parent_id: Option<u32>,
 }
 
 #[derive(Deserialize)]

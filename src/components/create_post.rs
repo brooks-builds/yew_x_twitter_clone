@@ -10,6 +10,8 @@ use crate::components::title::{BBTitle, BBTitleLevel};
 pub struct Props {
     #[prop_or_default]
     pub oncreatepost: Callback<AttrValue>,
+    #[prop_or_else(|| "Create Post".into())]
+    pub title: AttrValue,
 }
 
 #[styled_component]
@@ -51,7 +53,7 @@ pub fn CreatePost(props: &Props) -> Html {
 
     html! {
             <form class={form} {onsubmit}>
-                <BBTitle level={BBTitleLevel::Two}>{"Create Post"}</BBTitle>
+                <BBTitle level={BBTitleLevel::Two}>{props.title.clone()}</BBTitle>
                 <BBTextArea onchange={bb_textarea_onchange} value={new_post_text.deref().clone()} />
                 <button type={"submit"}>{"Submit post"}</button>
             </form>

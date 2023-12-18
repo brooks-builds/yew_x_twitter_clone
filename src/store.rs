@@ -1,7 +1,7 @@
 use yew::AttrValue;
 use yewdux::store::Store;
 
-use crate::api::{self, ApiOnePost};
+use crate::api::{self};
 
 #[derive(Default, Debug, Clone, PartialEq, Eq, Store)]
 pub struct AppState {
@@ -23,6 +23,13 @@ impl AppState {
             *saved_post = post;
         } else {
             self.posts.push(post);
+        }
+    }
+
+    pub fn add_reply(&mut self, reply: Post, parent_id: u32) {
+        if let Some(parent) = self.posts.iter_mut().find(|post| post.id == parent_id) {
+            parent.response_count += 1;
+            parent.responses.push(reply);
         }
     }
 }

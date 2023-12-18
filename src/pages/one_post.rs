@@ -1,9 +1,10 @@
-use yew::{function_component, html, use_effect, use_effect_with, use_state, Html, Properties};
+use yew::{function_component, html, use_effect_with, use_state, AttrValue, Html, Properties};
 use yewdux::prelude::use_store;
 
 use crate::{
     api,
     components::{
+        create_post::CreatePost,
         one_post::BBPost,
         title::{BBTitle, BBTitleLevel},
     },
@@ -45,6 +46,24 @@ pub fn OnePost(props: &Props) -> Html {
         })
     }
 
+    let oncreatereply = {
+        let dispatch = dispatch.clone();
+        let parent_id = props.id;
+
+        dispatch.reduce_mut_future_callback_with(move |state, reply: AttrValue| {
+            Box::pin(async move {
+                match api::create_post(reply.clone(), Some(parent_id)).await {
+                    Ok(reply_post) => {
+                        state.add_reply(reply_post.into(), parent_id);
+                    }
+                    Err(error) => {
+                        gloo::console::error!("Error replying to post", error.to_string());
+                    }
+                }
+            })
+        })
+    };
+
     let Some(post) = store.get_post_by_id(props.id) else {
         return html! {
             <></>
@@ -54,6 +73,7 @@ pub fn OnePost(props: &Props) -> Html {
     html! {
         <main>
             <BBPost post={post.clone()} disable_navigation={true} />
+            <CreatePost title="Reply" oncreatepost={oncreatereply} />
             <BBTitle level={BBTitleLevel::Two} center={true}>{"Comments"}</BBTitle>
             {
                 post.responses.iter().map(|response| html! { <BBPost post={response.clone()} disable_navigation={true} / >}).collect::<Vec<Html>>()

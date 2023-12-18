@@ -47,7 +47,7 @@ pub fn Home() -> Html {
         let dispatch = dispatch.clone();
 
         wasm_bindgen_futures::spawn_local(async move {
-            let created_post = match api::create_post(post).await {
+            let created_post = match api::create_post(post, None).await {
                 Ok(post) => post,
                 Err(error) => {
                     gloo::console::error!("Error creating post", error.to_string());
