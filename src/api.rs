@@ -76,3 +76,20 @@ pub struct ApiOnePost {
     pub likes: u32,
     pub replies: Vec<Post>,
 }
+
+pub async fn edit_post(id: u32, post_text: AttrValue) -> Result<()> {
+    let url = format!("{API_URL}/api/v1/posts/{id}");
+    gloo::net::http::Request::patch(&url)
+        .json(&UpdatePost {
+            text: post_text.to_string(),
+        })?
+        .send()
+        .await?;
+
+    Ok(())
+}
+
+#[derive(Serialize, Debug)]
+pub struct UpdatePost {
+    text: String,
+}

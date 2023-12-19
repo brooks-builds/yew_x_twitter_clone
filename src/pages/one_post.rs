@@ -1,4 +1,6 @@
-use yew::{function_component, html, use_effect_with, use_state, AttrValue, Html, Properties};
+use yew::{
+    function_component, html, use_effect_with, use_state, AttrValue, Callback, Html, Properties,
+};
 use yewdux::prelude::use_store;
 
 use crate::{
@@ -70,9 +72,15 @@ pub fn OnePost(props: &Props) -> Html {
         };
     };
 
+    let onedit = {
+        Callback::from(|edited_text: AttrValue| {
+            gloo::console::log!(edited_text.to_string());
+        })
+    };
+
     html! {
         <main>
-            <BBPost post={post.clone()} disable_navigation={true} />
+            <BBPost post={post.clone()} disable_navigation={true} canedit={true} {onedit} />
             <CreatePost title="Reply" oncreatepost={oncreatereply} />
             <BBTitle level={BBTitleLevel::Two} center={true}>{"Comments"}</BBTitle>
             {

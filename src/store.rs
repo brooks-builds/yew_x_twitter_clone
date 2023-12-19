@@ -32,6 +32,14 @@ impl AppState {
             parent.responses.push(reply);
         }
     }
+
+    pub fn update_top_level_post(&mut self, new_text: AttrValue, id: u32) {
+        let Some(post) = self.posts.iter_mut().find(|post| post.id == id) else {
+            return;
+        };
+
+        post.text = new_text;
+    }
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Eq)]
